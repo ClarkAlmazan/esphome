@@ -17,9 +17,9 @@ void FoshanMPPT::setup() {}
 void FoshanMPPT::update() {
   uint8_t response[RESPONSE_LENGTH];
 
-  // Empty RX Buffer
-  while (this->available())
-    this->read();
+  // // Empty RX Buffer
+  // while (this->available())
+  //   this->read();
   this->write_array(DATA_REQUEST, REQUEST_LENGTH);
   this->read_array(response, RESPONSE_LENGTH);
   this->flush();
