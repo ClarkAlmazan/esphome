@@ -52,13 +52,13 @@ void FoshanMPPT::update() {
 
   const uint32_t total_solar_generation =
       uint32_t(response[39] << 24 | response[40] << 16 | response[41] << 8 | response[42]);
-  if (this->total_energy_generation_ != nullptr) {
-    this->total_energy_generation_->publish_state(static_cast<double>(total_solar_generation / 1000));
+  if (this->total_energy_production_ != nullptr) {
+    this->total_energy_production_->publish_state(static_cast<double>(total_solar_generation / 1000));
   }
 
   // status bytes
-  uint8_t low_status_byte = (uint8_t) (bytes[9]);
-  uint8_t high_status_byte = (uint8_t) (bytes[10]);
+  uint8_t low_status_byte = (uint8_t) (response[9]);
+  uint8_t high_status_byte = (uint8_t) (response[10]);
 
 // error codes
 #define BIT_CONTROLLER_OVERHEATING_STATUS 0x1  // 00000001
@@ -93,7 +93,7 @@ void FoshanMPPT::update() {
     error = error + "PV undervoltage";
   }
   if (low_status_byte & BIT_CHARGING_OVERVOLTAGE_STATUS) {
-    error = error + "Charging voltage too high"
+    error = error + "Charging voltage too high";
   }
 
   if (error.length() & this->error_ != nullptr) {
@@ -114,7 +114,7 @@ void FoshanMPPT::update() {
     charge_mode = "MPPT charge";
   }
   if (high_status_byte & BIT_STANDBY_STATUS) {
-    charge_mode "Standby";
+    charge_mode = "Standby";
   }
 
   if (charge_mode.length() & this->charge_mode_ != nullptr) {
