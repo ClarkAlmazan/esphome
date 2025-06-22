@@ -10,7 +10,7 @@ CONF_FOSHAN_MPPT_ID = "foshan_mppt_id"
 
 foshanmppt_ns = cg.esphome_ns.namespace("foshan_mppt")
 FoshanMPPTComponent = foshanmppt_ns.class_(
-    "FoshanMPPTComponent", cg.PollingComponent, uart.UARTDevice
+    "FoshanMPPT", cg.PollingComponent, uart.UARTDevice
 )
 
 

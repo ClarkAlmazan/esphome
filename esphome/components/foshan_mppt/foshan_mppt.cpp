@@ -12,9 +12,9 @@ static const uint8_t REQUEST_LENGTH = 8;
 static const uint8_t RESPONSE_LENGTH = 45;
 static const uint8_t DATA_REQUEST[] = {0x01, 0x03, 0x00, 0x00, 0x00, 0x14, 0x45, 0xC5};
 
-void FoshanMPPTComponent::setup() {}
+void FoshanMPPT::setup() {}
 
-void FoshanMPPTComponent::update() {
+void FoshanMPPT::update() {
   uint8_t response[RESPONSE_LENGTH];
 
   // Empty RX Buffer
@@ -52,8 +52,8 @@ void FoshanMPPTComponent::update() {
 
   const uint32_t total_solar_generation =
       uint32_t(response[39] << 24 | response[40] << 16 | response[41] << 8 | response[42]);
-  if (this->total_solar_generation_ != nullptr) {
-    this->total_solar_generation_->publish_state(static_cast<double>(total_solar_generation / 1000));
+  if (this->total_energy_generation_ != nullptr) {
+    this->total_energy_generation_->publish_state(static_cast<double>(total_solar_generation / 1000));
   }
 
   // status bytes
@@ -122,7 +122,7 @@ void FoshanMPPTComponent::update() {
   }
 }
 
-void FoshanMPPTComponent::dump_config() { this->check_uart_settings(2400); }
+void FoshanMPPT::dump_config() { this->check_uart_settings(2400); }
 
 }  // namespace foshan_mppt
 }  // namespace esphome
