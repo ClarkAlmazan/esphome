@@ -9,7 +9,7 @@ namespace foshan_mppt {
 
 static const char *const TAG = "foshan_mppt";
 static const uint8_t REQUEST_LENGTH = 8;
-static const uint8_t RESPONSE_LENGTH = 40;
+static const uint8_t RESPONSE_LENGTH = 45;
 static const uint8_t DATA_REQUEST[] = {0x01, 0x03, 0x00, 0x00, 0x00, 0x14, 0x45, 0xC5};
 
 void FoshanMPPT::setup() {}
@@ -21,8 +21,8 @@ void FoshanMPPT::update() {
   while (this->available())
     this->read();
   this->write_array(DATA_REQUEST, REQUEST_LENGTH);
-  this->flush();
   this->read_array(response, RESPONSE_LENGTH);
+  this->flush();
 
   // Read response
   const uint16_t pv_voltage = (uint16_t(response[25]) << 8) | response[26];
