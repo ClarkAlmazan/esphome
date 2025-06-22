@@ -50,10 +50,10 @@ void FoshanMPPT::update() {
     this->mppt_temperature_->publish_state(mppt_temperature);
   }
 
-  const uint32_t total_solar_generation =
-      uint32_t(response[39] << 24 | response[40] << 16 | response[41] << 8 | response[42]);
+  const double total_solar_generation =
+      double(response[39] << 24 | response[40] << 16 | response[41] << 8 | response[42]);
   if (this->total_energy_production_ != nullptr) {
-    this->total_energy_production_->publish_state(static_cast<double>(total_solar_generation / 1000));
+    this->total_energy_production_->publish_state(total_solar_generation / 1000);
   }
 
   // status bytes
@@ -78,22 +78,22 @@ void FoshanMPPT::update() {
 
   std::string error = "";
   if (low_status_byte & BIT_CONTROLLER_OVERHEATING_STATUS) {
-    error = error + "Controller overheating";
+    error = error + "Controller overheating ";
   }
   if (low_status_byte & BIT_BATTERY_OVERHEATING_STATUS) {
-    error = error + "Battery overheating";
+    error = error + "Battery overheating ";
   }
   if (low_status_byte & BIT_DC_OUTPUT_OVERCURRENT_STATUS) {
-    error = error + "DC output overcurrent";
+    error = error + "DC output overcurrent ";
   }
   if (low_status_byte & BIT_PV_OVERVOLTAGE_STATUS) {
-    error = error + "PV overvoltage";
+    error = error + "PV overvoltage ";
   }
   if (low_status_byte & BIT_PV_UNDERVOLTAGE_STATUS) {
     error = error + "PV undervoltage";
   }
   if (low_status_byte & BIT_CHARGING_OVERVOLTAGE_STATUS) {
-    error = error + "Charging voltage too high";
+    error = error + "Charging voltage too high ";
   }
 
   if (error.length() & this->error_ != nullptr) {
