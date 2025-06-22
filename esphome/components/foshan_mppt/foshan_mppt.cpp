@@ -9,7 +9,7 @@ namespace foshan_mppt {
 
 static const char *const TAG = "foshan_mppt";
 static const uint8_t REQUEST_LENGTH = 8;
-static const uint8_t RESPONSE_LENGTH = 45;
+static const uint8_t RESPONSE_LENGTH = 50;
 static const uint8_t DATA_REQUEST[] = {0x01, 0x03, 0x00, 0x00, 0x00, 0x14, 0x45, 0xC5};
 
 void FoshanMPPT::setup() {}
