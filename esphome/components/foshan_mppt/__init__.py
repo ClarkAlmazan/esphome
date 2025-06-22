@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 from esphome.components import uart
 import esphome.config_validation as cv
-from esphome.const import CONF_ADDRESS, CONF_ID
+from esphome.const import CONF_ID
 
 MULTI_CONF = True
 DEPENDENCIES = ["uart"]
@@ -18,7 +18,6 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(FoshanMPPTComponent),
-            cv.Optional(CONF_ADDRESS, default=0x01): cv.positive_int,
         }
     )
     .extend(uart.UART_DEVICE_SCHEMA)
