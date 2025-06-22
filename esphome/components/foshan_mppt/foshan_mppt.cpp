@@ -120,7 +120,6 @@ void FoshanMPPTComponent::update() {
   if (charge_mode.length() & this->charge_mode_ != nullptr) {
     this->charge_mode_->publish_state(charge_mode);
   }
-  charge_mode.
 }
 
 void FoshanMPPTComponent::dump_config() { this->check_uart_settings(2400); }
