@@ -25,24 +25,24 @@ void FoshanMPPT::update() {
   this->flush();
 
   // Read response
-  const uint16_t pv_voltage = (uint16_t(response[25]) << 8) | response[26];
+  const float pv_voltage = (float(response[25]) << 8) | response[26];
   if (this->pv_voltage_ != nullptr) {
-    this->pv_voltage_->publish_state(static_cast<float>(pv_voltage / 10));
+    this->pv_voltage_->publish_state(pv_voltage / 10);
   }
 
-  const uint16_t charging_voltage = (uint16_t(response[27]) << 8) | response[28];
+  const float charging_voltage = (float(response[27]) << 8) | response[28];
   if (this->charging_voltage_ != nullptr) {
-    this->charging_voltage_->publish_state(static_cast<float>(charging_voltage / 10));
+    this->charging_voltage_->publish_state(charging_voltage / 10);
   }
 
-  const uint16_t charging_current = (uint16_t(response[29]) << 8) | response[30];
+  const float charging_current = (float(response[29]) << 8) | response[30];
   if (this->charging_current_ != nullptr) {
-    this->charging_current_->publish_state(static_cast<float>(charging_current / 10));
+    this->charging_current_->publish_state(charging_current / 10);
   }
 
-  const uint16_t battery_voltage = (uint16_t(response[31]) << 8) | response[32];
+  const float battery_voltage = (float(response[31]) << 8) | response[32];
   if (this->battery_voltage_ != nullptr) {
-    this->battery_voltage_->publish_state(static_cast<float>(battery_voltage / 10));
+    this->battery_voltage_->publish_state(battery_voltage / 10);
   }
 
   const uint16_t mppt_temperature = (uint16_t(response[35]) << 8) | response[36];
