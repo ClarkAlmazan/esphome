@@ -21,9 +21,16 @@ void FoshanMPPT::update() {
   // while (this->available())
   //   this->read();
   this->write_array(DATA_REQUEST, REQUEST_LENGTH);
-  this->read_array(response, RESPONSE_LENGTH);
+  bool ret = this->read_array(response, RESPONSE_LENGTH);
   this->flush();
 
+  if (!ret) {
+    ESP_LOGW(TAG, "Reading data from MPPT controller failed!");
+    this->status_set_warning();
+    return;
+  }
+
+  this->status_clear_warning();
   // Read response
   const float pv_voltage = float(response[25] << 8 | response[26]);
   if (this->pv_voltage_ != nullptr) {
