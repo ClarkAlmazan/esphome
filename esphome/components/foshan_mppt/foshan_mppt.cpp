@@ -71,8 +71,8 @@ void FoshanMPPT::update() {
   }
 
   // status bytes
-  uint8_t low_status_byte = (uint8_t) (response[9]);
-  uint8_t high_status_byte = (uint8_t) (response[10]);
+  uint8_t low_status_byte = (uint8_t) (response[10]);
+  uint8_t high_status_byte = (uint8_t) (response[09]);
 
   // // charging modes - low
   // #define BIT_BOOST_CHARGE_STATUS 0x40     // 01000000
