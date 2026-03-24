@@ -114,13 +114,13 @@ void FoshanMPPT::update() {
   if (low_status_byte & (1 << 8)) {
     charge_mode = "Equalizing charge";
   }
-  if (high_status_byte & (1 << 1)) {
+  if (int(high_status_byte) & (1 << 1)) {
     charge_mode = "Float charge";
   }
-  if (high_status_byte & (1 << 2)) {
+  if (int(high_status_byte) & (1 << 2)) {
     charge_mode = "MPPT charge";
   }
-  if (high_status_byte & (1 << 8)) {
+  if (int(high_status_byte) & (1 << 8)) {
     charge_mode = "Standby";
   }
 
