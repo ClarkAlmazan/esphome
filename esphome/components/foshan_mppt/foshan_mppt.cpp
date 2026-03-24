@@ -4,6 +4,13 @@
 #include <cinttypes>
 #include <cstring>
 
+// error codes
+#define BIT_CONTROLLER_OVERHEATING_STATUS 0x1  // 00000001
+#define BIT_BATTERY_OVERHEATING_STATUS 0x2     // 00000010
+#define BIT_DC_OUTPUT_OVERCURRENT_STATUS 0x4   // 00000100
+#define BIT_PV_OVERVOLTAGE_STATUS 0x8          // 00001000
+#define BIT_PV_UNDERVOLTAGE_STATUS 0x10        // 00010000
+#define BIT_CHARGING_OVERVOLTAGE_STATUS 0x20   // 00100000
 namespace esphome {
 namespace foshan_mppt {
 
@@ -67,13 +74,6 @@ void FoshanMPPT::update() {
   uint8_t low_status_byte = (uint8_t) (response[9]);
   uint8_t high_status_byte = (uint8_t) (response[10]);
 
-  // error codes
-  // #define BIT_CONTROLLER_OVERHEATING_STATUS 0x1  // 00000001
-  // #define BIT_BATTERY_OVERHEATING_STATUS 0x2     // 00000010
-  // #define BIT_DC_OUTPUT_OVERCURRENT_STATUS 0x4   // 00000100
-  // #define BIT_PV_OVERVOLTAGE_STATUS 0x8          // 00001000
-  // #define BIT_PV_UNDERVOLTAGE_STATUS 0x10        // 00010000
-  // #define BIT_CHARGING_OVERVOLTAGE_STATUS 0x20   // 00100000
   // // charging modes - low
   // #define BIT_BOOST_CHARGE_STATUS 0x40     // 01000000
   // #define BIT_EQUALIZE_CHARGE_STATUS 0x80  // 10000000
