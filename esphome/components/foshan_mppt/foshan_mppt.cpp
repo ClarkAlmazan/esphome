@@ -74,14 +74,14 @@ void FoshanMPPT::update() {
   uint8_t low_status_byte = (uint8_t) (response[10]);
   uint8_t high_status_byte = (uint8_t) (response[9]);
 
-  // // charging modes - low
-  // #define BIT_BOOST_CHARGE_STATUS 0x40     // 01000000
-  // #define BIT_EQUALIZE_CHARGE_STATUS 0x80  // 10000000
-  // // charging modes - high
-  // #define BIT_FLOAT_CHARGE_STATUS 0x1  // 00000001
-  // #define BIT_MPPT_CHARGE_STATUS 0x2   // 00000010
-  // // standby
-  // #define BIT_STANDBY_STATUS 0x80  // 10000000
+// charging modes - low
+#define BIT_BOOST_CHARGE_STATUS 0x40     // 01000000
+#define BIT_EQUALIZE_CHARGE_STATUS 0x80  // 10000000
+// charging modes - high
+#define BIT_FLOAT_CHARGE_STATUS 0x1  // 00000001
+#define BIT_MPPT_CHARGE_STATUS 0x2   // 00000010
+// standby
+#define BIT_STANDBY_STATUS 0x80  // 10000000
 
   std::string error = "";
   if (low_status_byte & BIT_CONTROLLER_OVERHEATING_STATUS) {
@@ -108,19 +108,19 @@ void FoshanMPPT::update() {
   }
 
   std::string charge_mode = "";
-  if (low_status_byte & (1 << 7)) {
+  if (low_status_byte & BIT_BOOST_CHARGE_STATUS) {
     charge_mode = "Boost charge";
   }
-  if (low_status_byte & (1 << 8)) {
+  if (low_status_byte & BIT_EQUALIZE_CHARGE_STATUS) {
     charge_mode = "Equalizing charge";
   }
-  if ((high_status_byte & (1 << 1)) == 1) {
+  if (high_status_byte & BIT_FLOAT_CHARGE_STATUS) {
     charge_mode = "Float charge";
   }
-  if ((high_status_byte & (1 << 2)) == 1) {
+  if (high_status_byte & BIT_MPPT_CHARGE_STATUS) {
     charge_mode = "MPPT charge";
   }
-  if ((high_status_byte & (1 << 8)) == 1) {
+  if (high_status_byte & BIT_STANDBY_STATUS) {
     charge_mode = "Standby";
   }
 
