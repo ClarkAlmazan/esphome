@@ -37,6 +37,15 @@ void FoshanMPPT::update() {
     return;
   }
 
+  // assume controller id is 1, function code 0x03 when reading data
+  if (response[0] != 0x01 & response[1] != 0x03) {
+    ESP_LOGW(TAG, "Controller mismatch or wrong function code, possible data corruption");
+    while (this->available())
+      this->read();
+    this->status_set_warning();
+    return;
+  }
+
   this->status_clear_warning();
   // Read response
   const float pv_voltage = float(response[25] << 8 | response[26]);
@@ -71,7 +80,7 @@ void FoshanMPPT::update() {
   }
 
   // status bytes
-  uint8_t low_status_byte = (uint8_t) (response[10]);
+  uint8_t low_status_byte = (uint8_t) (response[8]);
   uint8_t high_status_byte = (uint8_t) (response[9]);
 
 // charging modes - low
